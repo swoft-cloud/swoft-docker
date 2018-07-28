@@ -1,0 +1,107 @@
+###########################################################
+###################### General Setup ######################
+###########################################################
+
+### Paths #################################################
+
+# Point to the path of your applications code on your host
+APP_CODE_PATH_HOST=../swoft/
+
+# Point to where the `APP_CODE_PATH_HOST` should be in the container.
+APP_CODE_PATH_CONTAINER=/var/www/swoft
+# You may add flags to the path `:cached`, `:delegated`.
+# When using Docker Sync add `:nocopy`
+APP_CODE_PATH_CONTAINER_MODE=:nocopy
+
+# Choose storage path on your machine. For all storage systems
+DATA_PATH_HOST=~/.swoft-docker/data
+
+### Drivers ################################################
+
+# All volumes driver
+VOLUMES_DRIVER=local
+
+# All Networks driver
+NETWORKS_DRIVER=bridge
+
+### Docker compose files ##################################
+
+# Select which docker-compose files to include.
+# If using docker-sync append `:docker-compose.sync.yml` at the end
+COMPOSE_FILE=docker-compose.yml:docker-compose.sync.yml
+
+# Change the separator from : to ; on Windows
+COMPOSE_PATH_SEPARATOR=:
+
+# Define the prefix of container names. This is useful if you have multiple projects that use swoft-docker to have seperate containers per project.
+COMPOSE_PROJECT_NAME=swoft-docker
+
+### PHP Version ###########################################
+
+# Select a PHP version Accepted values: 7.2 - 7.1 - 7.0
+PHP_VERSION=7.1
+
+### PHP Interpreter #######################################
+
+# Select the PHP Interpreter. Accepted values: hhvm - php-fpm
+PHP_INTERPRETER=php-fpm
+
+### Docker Host IP ########################################
+
+# Enter your Docker Host IP (will be appended to /etc/hosts). Default is `10.0.75.1`
+DOCKER_HOST_IP=10.0.75.1
+
+### Remote Interpreter ####################################
+
+# Choose a Remote Interpreter entry matching name. Default is `swoft-docker`
+PHP_IDE_CONFIG=serverName=swoft-docker
+
+### Windows Path ##########################################
+
+# A fix for Windows users, to ensure the application path works
+COMPOSE_CONVERT_WINDOWS_PATHS=1
+
+### Environment ###########################################
+
+# If you need to change the sources (i.e. to China), set CHANGE_SOURCE to true
+CHANGE_SOURCE=true
+
+### Docker Sync ###########################################
+
+# If you are using Docker Sync. For `osx` use 'native_osx', for `windows` use 'unison', for `linux` docker-sync is not required
+DOCKER_SYNC_STRATEGY=native_osx
+
+###########################################################
+################ Containers Customization #################
+###########################################################
+
+### SWOFT #############################################
+# Version
+SWOFT_PHPREDIS_VERSION=4.0.0
+SWOFT_HIREDIS_VERSION=0.13.3
+SWOFT_SWOOLE_VERSION=4.0.1
+SWOFT_TIMEZONE=UTC
+
+### NGINX #################################################
+
+NGINX_HOST_HTTP_PORT=80
+NGINX_HOST_HTTPS_PORT=443
+NGINX_HOST_LOG_PATH=./logs/nginx/
+NGINX_SITES_PATH=./nginx/conf.d/
+NGINX_UPSTREAM_CONTAINER=swoft
+NGINX_UPSTREAM_PORT=9501
+
+### MYSQL #################################################
+
+MYSQL_VERSION=5.6
+MYSQL_DATABASE=default
+MYSQL_USER=swoft
+MYSQL_PASSWORD=123456
+MYSQL_PORT=3307
+MYSQL_ROOT_PASSWORD=123456
+MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+MYSQL_TIMEZONE=UTC
+
+### REDIS #################################################
+
+REDIS_PORT=6379

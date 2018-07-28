@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  swoft:
+    volumes:
+      - swoft-docker-sync-volumes:${APP_CODE_PATH_CONTAINER}${APP_CODE_PATH_CONTAINER_MODE}
+    command:
+      - sh
+      - -c
+      - |
+        composer install --no-dev
+        composer dump-autoload
+        composer clearcache
+        php /var/www/swoft/bin/swoft start
+volumes:
+  swoft-docker-sync-volumes:
+    external: true
