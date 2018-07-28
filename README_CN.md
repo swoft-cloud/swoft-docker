@@ -58,7 +58,8 @@ swoft-docker是一个基于docker-compose的服务编排仓库，让你可以快
 
 ## 使用
 
-启动脚本为 `./sync.sh <options>
+```
+./sync.sh <options>
 Available options:
    install		 Installs docker-sync gem on the host machine.
    up [services]	 Starts docker-sync and runs docker compose.
