@@ -56,7 +56,7 @@
 
 swoft-docker是一个基于docker-compose的服务编排仓库，让你可以快速基于docker容器化搭建配套的swoft环境。
 
-<font color="red">注意：找到 `swoft` 项目的所在的目录，让 `swoft-docker` 项目和 `swoft` 项目处于同一级目录下</font>
+**注意：找到 `swoft` 项目的所在的目录，让 `swoft-docker` 项目和 `swoft` 项目处于同一级目录下**
 
 ## 使用
 
