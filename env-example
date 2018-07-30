@@ -39,17 +39,8 @@ COMPOSE_PROJECT_NAME=swoft-docker
 ### PHP Version ###########################################
 
 # Select a PHP version Accepted values: 7.2 - 7.1 - 7.0
-PHP_VERSION=7.1
-
-### PHP Interpreter #######################################
-
-# Select the PHP Interpreter. Accepted values: hhvm - php-fpm
-PHP_INTERPRETER=php-fpm
-
-### Docker Host IP ########################################
-
-# Enter your Docker Host IP (will be appended to /etc/hosts). Default is `10.0.75.1`
-DOCKER_HOST_IP=10.0.75.1
+# PHP_VERSION=7.1
+PHP_VERSION=7.1.20-cli-alpine3.7
 
 ### Remote Interpreter ####################################
 
@@ -84,6 +75,7 @@ SWOFT_TIMEZONE=UTC
 
 ### NGINX #################################################
 
+NGINX_VERSION=alpine
 NGINX_HOST_HTTP_PORT=80
 NGINX_HOST_HTTPS_PORT=443
 NGINX_HOST_LOG_PATH=./logs/nginx/
@@ -104,4 +96,6 @@ MYSQL_TIMEZONE=UTC
 
 ### REDIS #################################################
 
+REDIS_VERSION=4.0-alpine
 REDIS_PORT=6379
+

@@ -20,15 +20,29 @@ services:
       container_name: swoft-docker-swoft
       build:
         context: ./swoft
+#        dockerfile: Dockerfile
+#        dockerfile: Dockerfile-cn
+        dockerfile: alpine.Dockerfile-cn
         args:
           - PHP_VERSION=${PHP_VERSION}
           - PHPREDIS_VERSION=${SWOFT_PHPREDIS_VERSION}
           - HIREDIS_VERSION=${SWOFT_HIREDIS_VERSION}
           - SWOOLE_VERSION=${SWOFT_SWOOLE_VERSION}
+          - PORT=${NGINX_UPSTREAM_PORT}
+      volumes:
+        - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       depends_on:
         - redis
         - mysql
       privileged: true
+      command:
+        - sh
+        - -c
+        - |
+          composer install --no-dev
+          composer dump-autoload
+          composer clearcache
+          php /var/www/swoft/bin/swoft start
       networks:
         - swoft-docker-network
 
@@ -38,6 +52,7 @@ services:
       build:
         context: ./nginx
         args:
+          - NGINX_VERSION=${NGINX_VERSION}
           - UPSTREAM_CONTAINER=${NGINX_UPSTREAM_CONTAINER}
           - UPSTREAM_PORT=${NGINX_UPSTREAM_PORT}
           - CHANGE_SOURCE=${CHANGE_SOURCE}
@@ -77,7 +92,10 @@ services:
 ### Redis ################################################
     redis:
       container_name: swoft-docker-redis
-      build: ./redis
+      build:
+        context: ./redis
+        args:
+          - REDIS_VERSION=${REDIS_VERSION}
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
       ports:

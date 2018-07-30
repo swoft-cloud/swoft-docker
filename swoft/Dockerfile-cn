@@ -12,17 +12,24 @@ ARG PORT=9501
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' > /etc/timezone
 
+## Change Debian Source
+ADD ./repositories/debian/sources  /etc/apt/sources.list
+
 # Libs
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --allow-downgrades \
         curl \
         wget \
         git \
         zip \
-        libz-dev \
         libssl-dev \
         libnghttp2-dev \
+        libz-dev \
         libpcre3-dev \
+        zlib1g=1:1.2.8.dfsg-2+b1 \
+        zlib1g-dev=1:1.2.8.dfsg-2+b1 \
+        libpcre3=2:8.35-3.3+deb8u4 \
+        libpcre3-dev=2:8.35-3.3+deb8u4 \
     && apt-get clean \
     && apt-get autoremove
 
