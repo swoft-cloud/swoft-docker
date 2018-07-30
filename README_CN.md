@@ -48,166 +48,43 @@
 
 [**中文文档**](https://doc.swoft.org)
 
-QQ 交流群: 548173319
+1. QQ Swoft 官方1群: 548173319
 
-## 环境要求
+2. QQ Swoft 官方2群: 778656850
 
-1. PHP 7.0 +
-2. [Swoole 2.1.3](https://github.com/swoole/swoole-src/releases) +, 需开启协程和异步Redis
-3. [Hiredis](https://github.com/redis/hiredis/releases)
-4. [Composer](https://getcomposer.org/)
+## 仓库简介
 
-## 安装
+swoft-docker是一个基于docker-compose的服务编排仓库，让你可以快速基于docker容器化搭建配套的swoft环境。
 
-### 手动安装
+**注意：找到 `swoft` 项目的所在的目录，让 `swoft-docker` 项目和 `swoft` 项目处于同一级目录下**
 
-* Clone 项目
-* 安装依赖 `composer install`
-
-### Composer 安装
-
-* `composer create-project swoft/swoft swoft`
-
-### Docker 安装
-
-* `docker run -p 80:80 swoft/swoft`
-
-### Docker-Compose 安装
-
-* `cd swoft`
-* `docker-compose up`
-
-## 配置
-
-若在执行 `composer install` 的时候由程序自动复制环境变量配置文件失败，则可手动复制项目根目录的 `.env.example` 并命名为 `.env`，注意在执行 `composer update` 时并不会触发相关的复制操作
+## 使用
 
 ```
-# Server
-PFILE=/tmp/swoft.pid
-PNAME=php-swoft
-TCPABLE=true
-CRONABLE=false
-AUTO_RELOAD=true
-
-# HTTP
-HTTP_HOST=0.0.0.0
-HTTP_PORT=80
-
-# WebSocket
-WS_ENABLE_HTTP=true
-
-# TCP
-TCP_HOST=0.0.0.0
-TCP_PORT=8099
-TCP_PACKAGE_MAX_LENGTH=2048
-TCP_OPEN_EOF_CHECK=false
-
-# Crontab
-CRONTAB_TASK_COUNT=1024
-CRONTAB_TASK_QUEUE=2048
-
-# Settings
-WORKER_NUM=1
-MAX_REQUEST=10000
-DAEMONIZE=0
-DISPATCH_MODE=2
-LOG_FILE=@runtime/swoole.log
-TASK_WORKER_NUM=1
+./sync.sh <options>
+Available options:
+   install		 Installs docker-sync gem on the host machine.
+   up [services]	 Starts docker-sync and runs docker compose.
+   down			 Stops containers and docker-sync.
+   bash			 Opens bash on the workspace.
+   sync			 Manually triggers the synchronization of files.
+   clean		 Removes all files from docker-sync.
 ```
 
-## 管理
+把 `env-example` 复制为 `.env`，通过运行 `./sync.sh up` 来构建镜像和创建容器。
 
-### 帮助命令
+## 关于Mac for docker磁盘同步问题
 
-```text
-[root@swoft]# php bin/swoft -h
- ____                __ _
-/ ___|_      _____  / _| |_
-\___ \ \ /\ / / _ \| |_| __|
- ___) \ V  V / (_) |  _| |_
-|____/ \_/\_/ \___/|_|  \__|
+这里，我们借助了 `docker-sync` 来解决mac系统下磁盘同步的问题。
 
-Usage:
-  php bin/swoft {command} [arguments ...] [options ...]
-
-Commands:
-  entity  The group command list of database entity
-  gen     Generate some common application template classes
-  rpc     The group command list of rpc server
-  server  The group command list of http-server
-  ws      There some commands for manage the webSocket server
-
-Options:
-  -v, --version  show version
-  -h, --help     show help
+```
+./sync.sh install
 ```
 
-### HTTP Server启动
+在这里，如果你的操作系统是 `OSX` 的话，那么，你必须修改 `.env` 下的几个配置项
 
-> 是否同时启动RPC服务器取决于.env文件配置
-
-```bash
-// 启动服务，根据 .env 配置决定是否是守护进程
-php bin/swoft start
-
-// 守护进程启动，覆盖 .env 守护进程(DAEMONIZE)的配置
-php bin/swoft start -d
-
-// 重启
-php bin/swoft restart
-
-// 重新加载
-php bin/swoft reload
-
-// 关闭服务
-php bin/swoft stop
-```
-
-### WebSocket Server启动
-
-启动WebSocket服务器,可选是否同时支持http处理
-
-```bash
-// 启动服务，根据 .env 配置决定是否是守护进程
-php bin/swoft ws:start
-
-// 守护进程启动，覆盖 .env 守护进程(DAEMONIZE)的配置
-php bin/swoft ws:start -d
-
-// 重启
-php bin/swoft ws:restart
-
-// 重新加载
-php bin/swoft ws:reload
-
-// 关闭服务
-php bin/swoft ws:stop
-```
-
-### RPC Server启动
-
-> 启动独立的RPC服务器
-
-```bash
-// 启动服务，根据 .env 配置决定是否是守护进程
-php bin/swoft rpc:start
-
-// 守护进程启动，覆盖 .env 守护进程(DAEMONIZE)的配置
-php bin/swoft rpc:start -d
-
-// 重启
-php bin/swoft rpc:restart
-
-// 重新加载
-php bin/swoft rpc:reload
-
-// 关闭服务
-php bin/swoft rpc:stop
-```
-
-## 更新日志
-
-[更新日志](changelog.md)
+- APP_CODE_PATH_CONTAINER_MODE=:nocopy
+- DOCKER_SYNC_STRATEGY=native_osx
 
 ## 协议
 
