@@ -73,7 +73,17 @@ Available options:
 
 把 `env-example` 复制为 `.env`，通过运行 `./sync.sh up` 来构建镜像和创建容器。
 
-## 关于Mac for docker磁盘同步问题
+## docker for linux
+
+在这里，如果你的操作系统是 `Linux` 的话，那么，**建议**修改 `.env` 下的几个配置项
+
+- APP_CODE_PATH_CONTAINER_MODE=:cached
+
+```
+docker-composer -f docker-compose.yml up
+```
+
+## 关于docker for mac磁盘同步问题
 
 这里，我们借助了 `docker-sync` 来解决mac系统下磁盘同步的问题。
 
@@ -81,10 +91,14 @@ Available options:
 ./sync.sh install
 ```
 
-在这里，如果你的操作系统是 `OSX` 的话，那么，你必须修改 `.env` 下的几个配置项
+在这里，如果你的操作系统是 `OSX` 的话，那么，你**必须**修改 `.env` 下的几个配置项
 
 - APP_CODE_PATH_CONTAINER_MODE=:nocopy
 - DOCKER_SYNC_STRATEGY=native_osx
+
+```
+./sync.sh up
+```
 
 ## 协议
 

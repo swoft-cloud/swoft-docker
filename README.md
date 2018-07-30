@@ -51,162 +51,53 @@ The first high-performance PHP coroutine full-stack componentization framework b
 
 QQ Group: 548173319/778656850
 
-## Environmental Requirements
+## Introduction
 
-1. PHP 7.0 +
-2. [Swoole 2.1.3](https://github.com/swoole/swoole-src/releases) +, *coroutine* and *async redis client* options are required
-3. [Hiredis](https://github.com/redis/hiredis/releases)
-4. [Composer](https://getcomposer.org/)
+Swoft-docker is a base on docker-compose service choreography repository that allows you to quickly build a complete swoft environment based on docker containerization.
 
-## Install
+**Note: locate the directory where the `swoft` project is located so that the `swoft-docker` project and the `swoft` project are in the same directory**
 
-### Manual Installation
-
-* Clone project
-* Install requires `composer install`
-
-### Install by Composer
-
-* `composer create-project swoft/swoft swoft`
-
-### Install by Docker
-
-* `docker run -p 80:80 swoft/swoft`
-
-### Install by Docker-Compose
-
-* `cd swoft`
-* `docker-compose up`
-
-## Configuration
-
-If automatically copied `.env` file fails when `composer install` was executed, the `.env.example` that in root directory can be manually copied and named `.env`. Note that `composer update` will not trigger related copy operations.
+## Usage
 
 ```
-# Server
-PFILE=/tmp/swoft.pid
-PNAME=php-swoft
-TCPABLE=true
-CRONABLE=false
-AUTO_RELOAD=true
-
-# HTTP
-HTTP_HOST=0.0.0.0
-HTTP_PORT=80
-
-# WebSocket
-WS_ENABLE_HTTP=true
-
-# TCP
-TCP_HOST=0.0.0.0
-TCP_PORT=8099
-TCP_PACKAGE_MAX_LENGTH=2048
-TCP_OPEN_EOF_CHECK=false
-
-# Crontab
-CRONTAB_TASK_COUNT=1024
-CRONTAB_TASK_QUEUE=2048
-
-# Settings
-WORKER_NUM=1
-MAX_REQUEST=10000
-DAEMONIZE=0
-DISPATCH_MODE=2
-LOG_FILE=@runtime/swoole.log
-TASK_WORKER_NUM=1
+./sync.sh <options>
+Available options:
+   install		 Installs docker-sync gem on the host machine.
+   up [services]	 Starts docker-sync and runs docker compose.
+   down			 Stops containers and docker-sync.
+   bash			 Opens bash on the workspace.
+   sync			 Manually triggers the synchronization of files.
+   clean		 Removes all files from docker-sync.
 ```
 
-## Management
+Copy `env-example` to `.env`, build the mirror and create the container by running `./sync.sh up`.
 
-### Help command
+## docker for linux
 
-```text
-[root@swoft]# php bin/swoft -h
- ____                __ _
-/ ___|_      _____  / _| |_
-\___ \ \ /\ / / _ \| |_| __|
- ___) \ V  V / (_) |  _| |_
-|____/ \_/\_/ \___/|_|  \__|
+Here, if your operating system is `Linux`, then **recommends** to modify several configuration items under `.env`.
 
-Usage:
-  php bin/swoft {command} [arguments ...] [options ...]
+- APP_CODE_PATH_CONTAINER_MODE=:cached
 
-Commands:
-  entity  The group command list of database entity
-  gen     Generate some common application template classes
-  rpc     The group command list of rpc server
-  server  The group command list of http-server
-  ws      There some commands for manage the webSocket server
-
-Options:
-  -v, --version  show version
-  -h, --help     show help
+```
+docker-composer -f docker-compose.yml up
 ```
 
-### Start HTTP Server
+## docker for mac
 
-```bash
-// Start HTTP Server
-php bin/swoft start
+Here, we use `docker-sync` to solve the problem of disk synchronization under MAC system.
 
-// Start Daemonize HTTP Server
-php bin/swoft start -d
-
-// Restart HTTP server
-php bin/swoft restart
-
-// Reload HTTP server
-php bin/swoft reload
-
-// Stop HTTP server
-php bin/swoft stop
+```
+./sync.sh install
 ```
 
-### Start WebSocket Server
+Here, if your operating system is `OSX`, then you **must** modify several configuration items under `.env`.
 
-Start WebSocket Server, optional whether to support HTTP processing.
+- APP_CODE_PATH_CONTAINER_MODE=:nocopy
+- DOCKER_SYNC_STRATEGY=native_osx
 
-```bash
-// Star WebSocket Server
-php bin/swoft ws:start
-
-// Start Daemonize WebSocket Server
-php bin/swoft ws:start -d
-
-// Restart WebSocket server
-php bin/swoft ws:restart
-
-// Reload WebSocket server
-php bin/swoft ws:reload
-
-// Stop WebSocket server
-php bin/swoft ws:stop
 ```
-
-### Start RPC Server
-
-Start an independent RPC Server.
-
-```bash
-// Start RPC Server
-php bin/swoft rpc:start
-
-// Start Daemonize RPC Server
-php bin/swoft rpc:start -d
-
-// Restart RPC Server
-php bin/swoft rpc:restart
-
-// Reload RPC Server
-php bin/swoft rpc:reload
-
-// Stop RPC Server
-php bin/swoft rpc:stop
+./sync.sh up
 ```
-
-## Changelog
-
-[Changelog](changelog.md)
 
 ## License
 
