@@ -79,7 +79,7 @@ Here, if your operating system is `Linux`, then **recommends** to modify several
 - APP_CODE_PATH_CONTAINER_MODE=:cached
 
 ```
-docker-composer -f docker-compose.yml up
+docker-compose -f docker-compose.yml up
 ```
 
 ## docker for mac
