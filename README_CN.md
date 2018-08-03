@@ -80,7 +80,7 @@ Available options:
 - APP_CODE_PATH_CONTAINER_MODE=:cached
 
 ```
-docker-composer -f docker-compose.yml up
+docker-compose -f docker-compose.yml up
 ```
 
 ## 关于docker for mac磁盘同步问题
