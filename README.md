@@ -57,6 +57,14 @@ Swoft-docker is a base on docker-compose service choreography repository that al
 
 **Note: locate the directory where the `swoft` project is located so that the `swoft-docker` project and the `swoft` project are in the same directory**
 
+## Environmental Requirements
+
+1. docker engine release 17.06.0+
+
+2. [docker-compose release 1.14.0+](https://github.com/docker/compose/releases/tag/1.14.0)
+
+**reference to: [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/#reference-and-guidelines)**
+
 ## Usage
 
 ```

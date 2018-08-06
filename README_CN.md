@@ -58,6 +58,15 @@ swoft-docker是一个基于docker-compose的服务编排仓库，让你可以快
 
 **注意：找到 `swoft` 项目的所在的目录，让 `swoft-docker` 项目和 `swoft` 项目处于同一级目录下**
 
+## 环境需求
+
+1. 安装docker且docker engine至少 `>= 17.06.0+`
+
+2. [安装docker-compose且docker-compose至少 `>= 1.14.0`](https://github.com/docker/compose/releases/tag/1.14.0)
+
+**参见：[Compose file version 3 reference](https://docs.docker.com/compose/compose-file/#reference-and-guidelines)**
+
+
 ## 使用
 
 ```
